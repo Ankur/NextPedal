@@ -1,0 +1,90 @@
+<html>
+<head>
+  <title>Vega Lite Bar Chart</title>
+  <meta charset="utf-8">
+
+  <script src="https://cdn.jsdelivr.net/npm/vega@4.2.0/build/vega.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@3.0.0-rc6/build/vega-lite.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@3.19.2/build/vega-embed.js"></script>
+
+  <style media="screen">
+    /* Add space between Vega-Embed links  */
+    .vega-actions a {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Template for Embedding Vega-Lite Visualization</h1>
+  <!-- Container for the visualization -->
+  <div id="vis"></div>
+
+  <script>
+  // Assign the specification to a local variable vlSpec.
+  var vlSpec = {
+		{
+      "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+      "autosize": {
+        "type": "pad",
+        "resize": true
+      },
+      "height": 200,
+      "data": {
+        "url": "http://willium.com/data/monthly_tweets.csv",
+        "format": {
+          "type": "csv",
+          "parse": {
+            "date": "date"
+          }
+        }
+      },
+      "mark": {
+        "type": "area",
+        "line": true
+      },
+      "encoding": {
+        "x": {
+          "timeUnit": "yearmonth",
+          "field": "date",
+          "type": "temporal",
+          "axis": {
+            "grid": false,
+            "title": null,
+            "tickCount": 9,
+            "format": "%Y"
+          },
+          "scale": {
+            "round": true,
+            "nice": {"interval": "year", "step": 1},
+            "clamp": true,
+            "domain": [
+                {"year": 2010, "month": "jan", "date": 1},
+                {"year": 2019, "month": "jan", "date": 1}
+            ]
+          }
+        },
+        "y": {
+          "field": "count",
+          "type": "quantitative",
+          "axis": null
+        },
+        "color": {
+          "value": "#55ACEE"
+        }
+      },
+      "config": {
+        "view": {
+          "strokeOpacity": 0
+        },
+        "mark": {
+          "fillOpacity": 0.3
+        }
+      }
+    }
+  };
+
+  // Embed the visualization in the container with id `vis`
+  vegaEmbed("#vis", vlSpec);
+  </script>
+</body>
+</html>
